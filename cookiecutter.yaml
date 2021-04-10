@@ -2,5 +2,5 @@ default_context:
   bootstrap: true
   custom_accounts: true
   heroku: false
-  project_name: Testando meu projeto
-  project_slug: teste
+  project_name: Testando
+  project_slug: Teste

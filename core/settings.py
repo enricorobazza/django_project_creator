@@ -153,4 +153,5 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-
+DESTINATION_URL = os.environ.get("DESTINATION_URL", Path(BASE_DIR).resolve().parent)
+COOKIECUTTER_PROJECT = "https://github.com/enricorobazza/cookiecutter_django"

@@ -5,7 +5,7 @@ import yaml
 from django.shortcuts import render, redirect
 from main.forms.settings import SettingsForm
 
-from core.settings import BASE_DIR
+from core.settings import BASE_DIR, DESTINATION_URL, COOKIECUTTER_PROJECT
 
 class IndexView():
     def index(request):
@@ -13,15 +13,17 @@ class IndexView():
             form = SettingsForm(request.POST)
             if form.is_valid:
                 settings = form.save(commit=False)
-                django_apps_path = Path(BASE_DIR).resolve().parent
                 config_path = os.path.join(BASE_DIR, "cookiecutter.yaml")
                 dict_file = {
                     'default_context': settings.as_dict(),
                 }
                 with open(config_path, 'w') as file:
                     yaml.dump(dict_file, file)
-                cookiecutter_path = os.path.join(django_apps_path, "cookie_cutter")
-                os.system("cookiecutter --config-file %s %s --no-input -o %s"%(config_path,cookiecutter_path, django_apps_path))
+                os.system("cookiecutter --config-file %s %s --no-input -o %s"%(
+                    config_path,
+                    COOKIECUTTER_PROJECT, 
+                    DESTINATION_URL)
+                )
                 print("Project created!!")
                 return redirect('index')
 
